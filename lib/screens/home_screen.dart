@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:speech_to_text/speech_to_text.dart';
 import '../providers/todo_provider.dart';
 import '../services/voice_service.dart';
 import '../models/todo.dart';

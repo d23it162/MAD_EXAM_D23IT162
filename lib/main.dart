@@ -3,9 +3,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'screens/home_screen.dart';
 import 'config/firebase_config.dart';
+import 'config/web_renderer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  configureApp(); // Configure web renderer
+  
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: FirebaseConfig.apiKey,
@@ -16,6 +19,7 @@ void main() async {
       appId: FirebaseConfig.appId,
     ),
   );
+  
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -26,6 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Voice Todo App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         useMaterial3: true,

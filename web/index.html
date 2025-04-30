@@ -33,11 +33,10 @@
   <link rel="manifest" href="manifest.json">
 
   <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-  <!-- Initialize Firebase -->
-  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyBcJ0vGZVdtWAWxdCDd2A2WgAu7nExngXc",
       authDomain: "voice-todo-e0049.firebaseapp.com",
@@ -48,19 +47,26 @@
     };
 
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    window.db = db;
   </script>
 
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
 <body>
+  <div id="flutter_app" style="width: 100vw; height: 100vh;"></div>
   <script>
     window.addEventListener('load', function(ev) {
-      _flutter.loader.load({
+      _flutter.loader.loadEntrypoint({
         serviceWorker: {
-          serviceWorkerVersion: '{{flutter_service_worker_version}}',
+          serviceWorkerVersion: '{{serviceWorkerVersion}}',
         }
+      }).then(function(engineInitializer) {
+        return engineInitializer.initializeEngine();
+      }).then(function(appRunner) {
+        return appRunner.runApp();
       });
     });
   </script>
